@@ -53,9 +53,6 @@ def write_csv_file(filename, rows):
 # Shapefile creation
 #============================
 
-import os
-from osgeo import ogr, osr
-
 def json_to_shapefile(filename):
     print(f"Parsing file '{filename}'...")
     data_points = location_history_parser.parse_json_file(filename)["locations"]
