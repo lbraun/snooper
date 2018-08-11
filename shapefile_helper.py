@@ -6,16 +6,8 @@ Created on Mon Aug  6 16:21:21 2018
 """
 
 import os
-from osgeo import ogr ,osr
 import csv
-
-filedir = r'D:\MASTER_GEOTECH_2S\LastCourse\FinalProject\Data'
-
-#Output shapefile
-filename_out_shp = os.path.join(filedir,'shp','Lucas_points.shp')
-
-#Loading csv
-filename_csv = os.path.join(filedir,'csv','Lucas Location History.csv')
+from osgeo import ogr ,osr
 
 def json_to_shapefile(data_points, output_filename, identifier=None):
     if identifier == None:
@@ -87,7 +79,7 @@ def json_to_shapefile(data_points, output_filename, identifier=None):
         layer.CreateFeature(feature)
 
 
-def csv_to_shp(filename_csv, name_person):
+def csv_to_shp(filename_csv, name_person, filename_out_shp):
 
     #============================
     #Importing shapefile
