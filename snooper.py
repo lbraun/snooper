@@ -10,14 +10,14 @@ import segments_helper
 # Complete processing
 #============================
 
-def process_files(filenames):
+def process_files(filenames, filters = {}):
     for filename in filenames:
-        process_file(filename)
+        process_file(filename, filters)
 
-def process_file(filename):
+def process_file(filename, filters = {}):
     print(f"\n### Processing {filename}...")
-    json_to_csv(filename)
-    shp_filename = json_to_shapefile(filename)
+    json_to_csv(filename, filters)
+    shp_filename = json_to_shapefile(filename, filters)
 
     climate_data_helper.add_climate_data(shapefile)
 
@@ -34,7 +34,7 @@ def process_file(filename):
 # CSV creation
 #============================
 
-def json_to_csv(filename):
+def json_to_csv(filename, filters = {}):
     print(f"Parsing file '{filename}'...")
     data = location_history_parser.parse_json_file_as_rows(filename)
 
@@ -53,7 +53,7 @@ def write_csv_file(filename, rows):
 # Shapefile creation
 #============================
 
-def json_to_shapefile(filename):
+def json_to_shapefile(filename, filters = {}):
     print(f"Parsing file '{filename}'...")
     data_points = location_history_parser.parse_json_file(filename)["locations"]
 
@@ -64,3 +64,16 @@ def json_to_shapefile(filename):
 
     print("Done!")
     return(output_filename)
+
+def filters_example():
+    filters = {
+        "start": datetime(2018, 4, 1),
+        "end": datetime(2018, 8, 1),
+        "bbox": {
+            "min_lat": -90.0,
+            "min_lon": 6.0,
+            "max_lat": 90.0,
+            "max_lon": 12.0,
+        }
+    }
+    return filters

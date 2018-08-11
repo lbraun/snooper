@@ -5,31 +5,24 @@ def load_json_file(filename):
     with open(filename) as json_file:
         return json.load(json_file)
 
-def parse_json_file(filename):
+def parse_json_file(filename, filters = {}):
     print("Loading JSON file...")
     raw_json_data = load_json_file(filename)
+
     print("Parsing JSON data...")
     parsed_json_data = parse_json_data(raw_json_data)
 
-    filters = {
-        "start": datetime(2018, 4, 1),
-        "end": datetime(2018, 8, 1),
-        "bbox": {
-            "min_lat": -90.0,
-            "min_lon": 6.0,
-            "max_lat": 90.0,
-            "max_lon": 12.0,
-        }
-    }
+    if filters != {}:
+        print("Filtering JSON data...")
+        filtered_json_data = filter_json_data(parsed_json_data, filters=filters)
 
-    print("Filtering JSON data...")
-    filtered_json_data = filter_json_data(parsed_json_data, filters=filters)
     print("Sorting JSON data...")
     sorted_json_data = sort_json_data(filtered_json_data, 'timestamp')
+
     return sorted_json_data
 
-def parse_json_file_as_rows(filename):
-    sorted_json_data = parse_json_file(filename)
+def parse_json_file_as_rows(filename, filters = {}):
+    sorted_json_data = parse_json_file(filename, filters)
     rows = rowify_json_data(sorted_json_data)
     return rows
 

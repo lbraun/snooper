@@ -5,20 +5,11 @@ Created on Tue Aug  7 11:13:11 2018
 @author: willi
 """
 
+import os
 import numpy as np
 from osgeo import ogr, osr
-import os
 
-# filedir = r'D:\MASTER_GEOTECH_2S\LastCourse\FinalProject\Data'
-
-# #path to the shapefile
-# shp_filename = os.path.join(filedir,'shp','participant_6.shp')
-
-# # Path to output shapefile
-# output_filename = os.path.join(filedir, 'shp','participant_6_pr.shp')
-
-
-def generate_segments(shp_filename, target_projection_id, output_filename):
+def project(shp_filename, target_projection_id, output_filename):
     # Load the shapefile and extract the layer
     driver = ogr.GetDriverByName('ESRI Shapefile')
     shapefile = driver.Open(shp_filename, 0)

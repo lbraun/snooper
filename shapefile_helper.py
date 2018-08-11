@@ -7,7 +7,7 @@ Created on Mon Aug  6 16:21:21 2018
 
 import os
 import csv
-from osgeo import ogr ,osr
+from osgeo import ogr, osr
 
 def json_to_shapefile(data_points, output_filename, identifier=None):
     if identifier == None:
